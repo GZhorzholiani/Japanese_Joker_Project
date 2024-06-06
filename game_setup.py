@@ -34,7 +34,7 @@ class GameSetup:
     def trump_card(trump_card_chooser):
         while True:
             chosen_trump_card = input(f"{trump_card_chooser} choose the trump card S, D, C, H, None: ").upper().strip()
-            if chosen_trump_card in ["S", "D", "C", "H", "None"]:
+            if chosen_trump_card in ["S", "D", "C", "H", "NONE"]:
                 return chosen_trump_card
 
 
