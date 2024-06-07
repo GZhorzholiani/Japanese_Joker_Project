@@ -4,7 +4,7 @@ from game_setup import GameSetup
 from card_distributions import three_card_distribution, field_card_distribution, remaining_card_distribution
 
 
-def player_turn(player_name, players_final_cards_in_hands, field_cards):
+def player_turn(player_name, players_final_cards_in_hands, field_cards, previous_player_card=None):
     while True:
         card_to_play = input(f"{'*' * 50}\n"
                              f"{player_name}, it's your turn to play!\n"
@@ -26,25 +26,28 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards):
 
 
 def round_winner_calculator(field_cards, players_final_cards_in_hands, total_cards_with_trump):
-    first_to_play = list(players_final_cards_in_hands.keys())[0]
-    second_to_play = list(players_final_cards_in_hands.keys())[1]
-    player_scores = {f"{first_to_play}": 0, f"{second_to_play}": 0}
-
-    while sum(list(player_scores.values())) <= 18:
-        first_card_to_play = player_turn(first_to_play, players_final_cards_in_hands, field_cards)
-        second_card_to_play = player_turn(second_to_play, players_final_cards_in_hands, field_cards)
-        if total_cards_with_trump[first_card_to_play] > total_cards_with_trump[second_card_to_play]:
-            list(player_scores.values())[0] += 1
-        elif total_cards_with_trump[first_card_to_play] < total_cards_with_trump[second_card_to_play]:
-            list(player_scores.values())[1]] += 1
-
-
-    # if list(player_scores.values())[0] > list(player_scores.values())[1]:
-    #     return list(player_scores.keys())[0]
-    # elif list(player_scores.values())[0] < list(player_scores.values())[1]:
-    #     return list(player_scores.keys())[1]
-    # else:
-    #     return None
+    player_one = list(players_final_cards_in_hands.keys())[0]
+    player_two = list(players_final_cards_in_hands.keys())[1]
+    starting_player = player_one
+    player_one_score = 0
+    player_two_score = 0
+    while sum([player_one_score, player_two_score]) < 5:
+        if starting_player == player_one:
+            player_one_card = player_turn(player_one, players_final_cards_in_hands, field_cards)
+            player_two_card = player_turn(player_two, players_final_cards_in_hands, field_cards, player_one_card)
+        else:
+            player_two_card = player_turn(player_two, players_final_cards_in_hands, field_cards)
+            player_one_card = player_turn(player_one, players_final_cards_in_hands, field_cards, player_two_card)
+        if total_cards_with_trump[player_one_card] > total_cards_with_trump[player_two_card]:
+            player_one_score += 1
+            print(f"One point to - {player_one}")
+            starting_player = player_one
+        elif total_cards_with_trump[player_one_card] < total_cards_with_trump[player_two_card]:
+            player_two_score += 1
+            print(f"One point to - {player_two}")
+            starting_player = player_two
+    player_scores = player_one_score + player_two_score
+    return player_scores
 
 
 def main():
