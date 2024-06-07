@@ -43,7 +43,7 @@ def remaining_card_distribution(remaining_cards_10, players_and_their_cards):
 
 def main():
     player_names = user_names()
-    total_cards = total_cards_generator()
+    total_cards = list(total_cards_generator().keys())
     gameplay = GameSetup(player_names, total_cards)
     card_distributor_player, trump_card_chooser_player = gameplay.card_distributor_and_trump_card_chooser()
     first_three_cards, remaining_30_cards = three_card_distribution(total_cards, card_distributor_player, trump_card_chooser_player)
