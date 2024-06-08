@@ -73,8 +73,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
             elif len(joker_action_request) == 1:
                 available_cards_to_play.extend(joker_action_request.keys())
             else:
-                for card, value in joker_action_request.items():
-                    value += total_cards_with_trump[card]
+                for card in joker_action_request:
+                    joker_action_request[card] += total_cards_with_trump.get(card, 0)
                 available_cards_to_play.append(max(joker_action_request, key=joker_action_request.get))
             while True:
                 card_to_play = input(f"{'*' * 50}\n"
