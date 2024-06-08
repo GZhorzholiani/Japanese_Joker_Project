@@ -62,10 +62,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         elif card_to_play in field_cards[player_name]['face_up']:
                             card_to_play_index = field_cards[player_name]['face_up'].index(card_to_play)
                             field_cards[player_name]['face_up'].remove(card_to_play)
-                            players_final_cards_in_hands[player_name].append(
-                                field_cards[player_name]['face_down'][card_to_play_index])
-                            field_cards[player_name]['face_down'].remove(
-                                field_cards[player_name]['face_down'][card_to_play_index])
+                            players_final_cards_in_hands[player_name].append(field_cards[player_name]['face_down'][card_to_play_index])
+                            field_cards[player_name]['face_down'].remove(field_cards[player_name]['face_down'][card_to_play_index])
                             break
                     return card_to_play
                 else:
@@ -87,7 +85,90 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     players_final_cards_in_hands[player_name].remove(card_to_play)
                     break
             return card_to_play
-
+        elif previous_player_card[0] == trump_card:
+            for playable_card in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                if playable_card[0] == trump_card:
+                    available_cards_to_play.append(playable_card)
+            if len(available_cards_to_play) != 0:
+                while True:
+                    card_to_play = input(f"{'*' * 50}\n"
+                                         f"{player_name}, it's your turn to play!\n"
+                                         f"Cards in your hand are: {players_final_cards_in_hands[player_name]}\n"
+                                         f"Cards on the field are: {field_cards[player_name]['face_up']}\n"
+                                         f"But you have to play from the following: {available_cards_to_play}\n"
+                                         f"Please, choose a card to play: ").upper().strip()
+                    if card_to_play in available_cards_to_play:
+                        players_final_cards_in_hands[player_name].remove(card_to_play)
+                        break
+                    elif card_to_play in field_cards[player_name]['face_up']:
+                        card_to_play_index = field_cards[player_name]['face_up'].index(card_to_play)
+                        field_cards[player_name]['face_up'].remove(card_to_play)
+                        players_final_cards_in_hands[player_name].append(field_cards[player_name]['face_down'][card_to_play_index])
+                        field_cards[player_name]['face_down'].remove(field_cards[player_name]['face_down'][card_to_play_index])
+                        break
+                return card_to_play
+            else:
+                print("You dont have a trump card to play, you can play whatever you like!")
+                while True:
+                    card_to_play = input(f"{'*' * 50}\n"
+                                         f"{player_name}, it's your turn to play!\n"
+                                         f"Cards in your hand are: {players_final_cards_in_hands[player_name]}\n"
+                                         f"Available cards on the field are: {field_cards[player_name]['face_up']}\n"
+                                         f"Please, choose a card to play: ").upper().strip()
+                    if card_to_play in players_final_cards_in_hands[player_name]:
+                        players_final_cards_in_hands[player_name].remove(card_to_play)
+                        break
+                    elif card_to_play in field_cards[player_name]['face_up']:
+                        card_to_play_index = field_cards[player_name]['face_up'].index(card_to_play)
+                        field_cards[player_name]['face_up'].remove(card_to_play)
+                        players_final_cards_in_hands[player_name].append(
+                            field_cards[player_name]['face_down'][card_to_play_index])
+                        field_cards[player_name]['face_down'].remove(
+                            field_cards[player_name]['face_down'][card_to_play_index])
+                        break
+                return card_to_play
+        else:
+            for playable_card in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                if playable_card[0] == previous_player_card[0]:
+                    available_cards_to_play.append(playable_card)
+            if len(available_cards_to_play) != 0:
+                while True:
+                    card_to_play = input(f"{'*' * 50}\n"
+                                         f"{player_name}, it's your turn to play!\n"
+                                         f"Cards in your hand are: {players_final_cards_in_hands[player_name]}\n"
+                                         f"Cards on the field are: {field_cards[player_name]['face_up']}\n"
+                                         f"But you have to play from the following: {available_cards_to_play}\n"
+                                         f"Please, choose a card to play: ").upper().strip()
+                    if card_to_play in players_final_cards_in_hands:
+                        players_final_cards_in_hands[player_name].remove(card_to_play)
+                        break
+                    elif card_to_play in field_cards[player_name]['face_up']:
+                        card_to_play_index = field_cards[player_name]['face_up'].index(card_to_play)
+                        field_cards[player_name]['face_up'].remove(card_to_play)
+                        players_final_cards_in_hands[player_name].append(field_cards[player_name]['face_down'][card_to_play_index])
+                        field_cards[player_name]['face_down'].remove(field_cards[player_name]['face_down'][card_to_play_index])
+                        break
+                return card_to_play
+            else:
+                print("You dont have a trump card to play, you can play whatever you like!")
+                while True:
+                    card_to_play = input(f"{'*' * 50}\n"
+                                         f"{player_name}, it's your turn to play!\n"
+                                         f"Cards in your hand are: {players_final_cards_in_hands[player_name]}\n"
+                                         f"Available cards on the field are: {field_cards[player_name]['face_up']}\n"
+                                         f"Please, choose a card to play: ").upper().strip()
+                    if card_to_play in players_final_cards_in_hands[player_name]:
+                        players_final_cards_in_hands[player_name].remove(card_to_play)
+                        break
+                    elif card_to_play in field_cards[player_name]['face_up']:
+                        card_to_play_index = field_cards[player_name]['face_up'].index(card_to_play)
+                        field_cards[player_name]['face_up'].remove(card_to_play)
+                        players_final_cards_in_hands[player_name].append(
+                            field_cards[player_name]['face_down'][card_to_play_index])
+                        field_cards[player_name]['face_down'].remove(
+                            field_cards[player_name]['face_down'][card_to_play_index])
+                        break
+                return card_to_play
 
 
 def round_winner_calculator(field_cards, players_final_cards_in_hands, total_cards_with_trump, trump_card, card_suits):
@@ -95,7 +176,7 @@ def round_winner_calculator(field_cards, players_final_cards_in_hands, total_car
     player_two = list(players_final_cards_in_hands.keys())[1]
     starting_player = player_one
     player_scores = {f"{player_one}": 0, f"{player_two}": 0}
-    while sum([player_scores[f"{player_one}"], player_scores[f"{player_two}"]]) < 3:
+    while sum([player_scores[f"{player_one}"], player_scores[f"{player_two}"]]) < 18:
         if starting_player == player_one:
             player_one_card, joker_action = player_turn(player_one, players_final_cards_in_hands, field_cards, trump_card, card_suits)
             player_two_card = player_turn(player_two, players_final_cards_in_hands, field_cards, trump_card, card_suits, player_one_card, joker_action, total_cards_with_trump)
@@ -119,6 +200,7 @@ def main():
     gameplay = GameSetup(player_names, total_cards)
     card_distributor_player, trump_card_chooser_player = gameplay.card_distributor_and_trump_card_chooser()
     first_three_cards, remaining_cards_30 = three_card_distribution(total_cards, trump_card_chooser_player, card_distributor_player)
+    print(first_three_cards)
     trump_card, card_suits = gameplay.trump_card(trump_card_chooser_player)
     total_cards_with_trump = gameplay.trump_card_effect(total_cards_generator(), trump_card)
     remaining_10_cards, field_cards = field_card_distribution(remaining_cards_30, trump_card_chooser_player, card_distributor_player)
