@@ -16,7 +16,7 @@ def main():
     first_three_cards, remaining_cards_30 = three_card_distribution(total_cards, trump_card_chooser_player, card_distributor_player)
     print(first_three_cards)
     print("*" * 50)
-    trump_card = gameplay.trump_card(trump_card_chooser_player)
+    trump_card, card_suits = gameplay.trump_card(trump_card_chooser_player)
     print(f"Trump Card is - {trump_card}")
     print("*" * 50)
     total_cards_with_trump = gameplay.trump_card_effect(total_cards_generator(), trump_card)
