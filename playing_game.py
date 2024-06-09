@@ -89,6 +89,10 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
             for playable_card in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
                 if playable_card[0] == trump_card:
                     available_cards_to_play.append(playable_card)
+            if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                available_cards_to_play.append("BJOKER")
+            elif "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                available_cards_to_play.append("RJOKER")
             if len(available_cards_to_play) != 0:
                 while True:
                     card_to_play = input(f"{'*' * 50}\n"
@@ -97,7 +101,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                                          f"Cards on the field are: {field_cards[player_name]['face_up']}\n"
                                          f"But you have to play from the following: {available_cards_to_play}\n"
                                          f"Please, choose a card to play: ").upper().strip()
-                    if card_to_play in available_cards_to_play:
+                    if card_to_play in players_final_cards_in_hands[player_name]:
                         players_final_cards_in_hands[player_name].remove(card_to_play)
                         break
                     elif card_to_play in field_cards[player_name]['face_up']:
@@ -131,6 +135,10 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
             for playable_card in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
                 if playable_card[0] == previous_player_card[0]:
                     available_cards_to_play.append(playable_card)
+            if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                available_cards_to_play.append("BJOKER")
+            elif "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                available_cards_to_play.append("RJOKER")
             if len(available_cards_to_play) != 0:
                 while True:
                     card_to_play = input(f"{'*' * 50}\n"
@@ -139,7 +147,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                                          f"Cards on the field are: {field_cards[player_name]['face_up']}\n"
                                          f"But you have to play from the following: {available_cards_to_play}\n"
                                          f"Please, choose a card to play: ").upper().strip()
-                    if card_to_play in players_final_cards_in_hands:
+                    if card_to_play in players_final_cards_in_hands[player_name]:
                         players_final_cards_in_hands[player_name].remove(card_to_play)
                         break
                     elif card_to_play in field_cards[player_name]['face_up']:
@@ -163,10 +171,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     elif card_to_play in field_cards[player_name]['face_up']:
                         card_to_play_index = field_cards[player_name]['face_up'].index(card_to_play)
                         field_cards[player_name]['face_up'].remove(card_to_play)
-                        players_final_cards_in_hands[player_name].append(
-                            field_cards[player_name]['face_down'][card_to_play_index])
-                        field_cards[player_name]['face_down'].remove(
-                            field_cards[player_name]['face_down'][card_to_play_index])
+                        players_final_cards_in_hands[player_name].append(field_cards[player_name]['face_down'][card_to_play_index])
+                        field_cards[player_name]['face_down'].remove(field_cards[player_name]['face_down'][card_to_play_index])
                         break
                 return card_to_play
 
