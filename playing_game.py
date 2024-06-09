@@ -89,11 +89,11 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
             for playable_card in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
                 if playable_card[0] == trump_card:
                     available_cards_to_play.append(playable_card)
-            if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                available_cards_to_play.append("BJOKER")
-            elif "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                available_cards_to_play.append("RJOKER")
             if len(available_cards_to_play) != 0:
+                if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                    available_cards_to_play.append("BJOKER")
+                elif "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                    available_cards_to_play.append("RJOKER")
                 while True:
                     card_to_play = input(f"{'*' * 50}\n"
                                          f"{player_name}, it's your turn to play!\n"
@@ -135,11 +135,11 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
             for playable_card in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
                 if playable_card[0] == previous_player_card[0]:
                     available_cards_to_play.append(playable_card)
-            if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                available_cards_to_play.append("BJOKER")
-            elif "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                available_cards_to_play.append("RJOKER")
             if len(available_cards_to_play) != 0:
+                if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                    available_cards_to_play.append("BJOKER")
+                elif "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
+                    available_cards_to_play.append("RJOKER")
                 while True:
                     card_to_play = input(f"{'*' * 50}\n"
                                          f"{player_name}, it's your turn to play!\n"
