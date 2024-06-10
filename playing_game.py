@@ -158,7 +158,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         break
                 return card_to_play
             else:
-                print("You dont have a trump card to play, you can play whatever you like!")
+                print(f"You dont have {previous_player_card[0]} card to play, you can play whatever you like!")
                 while True:
                     card_to_play = input(f"{'*' * 50}\n"
                                          f"{player_name}, it's your turn to play!\n"
@@ -174,7 +174,10 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         players_final_cards_in_hands[player_name].append(field_cards[player_name]['face_down'][card_to_play_index])
                         field_cards[player_name]['face_down'].remove(field_cards[player_name]['face_down'][card_to_play_index])
                         break
-                return card_to_play
+                if card_to_play in ("BJOKER", "RJOKER"):
+                    return card_to_play
+                else:
+                    return None
 
 
 def round_winner_calculator(field_cards, players_final_cards_in_hands, total_cards_with_trump, trump_card, card_suits):
@@ -189,7 +192,11 @@ def round_winner_calculator(field_cards, players_final_cards_in_hands, total_car
         else:
             player_two_card, joker_action = player_turn(player_two, players_final_cards_in_hands, field_cards, trump_card, card_suits)
             player_one_card = player_turn(player_one, players_final_cards_in_hands, field_cards, trump_card, card_suits, player_two_card, joker_action, total_cards_with_trump)
-        if total_cards_with_trump[player_one_card] > total_cards_with_trump[player_two_card]:
+        if player_two_card is None:
+            player_scores[f"{player_one}"] += 1
+            print(f"One point to - {player_one}")
+            starting_player = player_one
+        elif total_cards_with_trump[player_one_card] > total_cards_with_trump[player_two_card]:
             player_scores[f"{player_one}"] += 1
             print(f"One point to - {player_one}")
             starting_player = player_one
