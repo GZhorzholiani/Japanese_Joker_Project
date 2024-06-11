@@ -52,7 +52,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                 if playable_card[0] == joker_action:
                     joker_action_request[playable_card] = 0
             if len(joker_action_request) == 0:
-                if trump_card is None:
+                if trump_card == "NONE":
                     print("You dont have a requested card, you can play whatever you like!")
                     while True:
                         card_to_play = input(f"{'*' * 50}\n"
@@ -241,7 +241,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     print("You have chosen a wrong card, Please choose again!")
                 return card_to_play
             else:
-                if trump_card is not None:
+                if trump_card != "NONE":
                     available_cards_to_play = []
                     for card in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
                         if card[0] == trump_card:
