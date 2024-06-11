@@ -66,6 +66,7 @@ class CardToPlay:
                                  f"Please, choose a card to play: ").upper().strip()
             if card_to_play in self.players_final_cards_in_hands[self.player_name]:
                 self.players_final_cards_in_hands[self.player_name].remove(card_to_play)
+                print(f"{'*' * 50}")
                 break
             elif card_to_play in self.field_cards[self.player_name]['face_up']:
                 card_to_play_index = self.field_cards[self.player_name]['face_up'].index(card_to_play)
@@ -73,6 +74,7 @@ class CardToPlay:
                 self.players_final_cards_in_hands[self.player_name].append(
                     self.field_cards[self.player_name]['face_down'][card_to_play_index])
                 self.field_cards[self.player_name]['face_down'].remove(self.field_cards[self.player_name]['face_down'][card_to_play_index])
+                print(f"{'*' * 50}")
                 break
             print(f"{'*' * 50}")
             print("You have chosen a wrong card, Please choose again!")

@@ -14,12 +14,14 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                                  f"Please, choose a card to play: ").upper().strip()
             if card_to_play in players_final_cards_in_hands[player_name]:
                 players_final_cards_in_hands[player_name].remove(card_to_play)
+                print(f"{'*' * 50}")
                 break
             elif card_to_play in field_cards[player_name]['face_up']:
                 card_to_play_index = field_cards[player_name]['face_up'].index(card_to_play)
                 field_cards[player_name]['face_up'].remove(card_to_play)
                 players_final_cards_in_hands[player_name].append(field_cards[player_name]['face_down'][card_to_play_index])
                 field_cards[player_name]['face_down'].remove(field_cards[player_name]['face_down'][card_to_play_index])
+                print(f"{'*' * 50}")
                 break
             print(f"{'*' * 50}")
             print("You have chosen a wrong card, Please choose again!")
@@ -33,7 +35,6 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     joker_action = input(f"Which highest card do you request?: {card_suits}, trump - {trump_card}: ").upper().strip()
                     if joker_action in ["S", "D", "C", "H"]:
                         break
-        print(f"{'*' * 50}")
         if joker_action is None:
             print(f"{player_name} has played - {card_to_play}")
         else:
@@ -82,7 +83,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     if len(available_cards_to_play) == 0:
                         print("You dont have a requested card nor a trump card in your hand, so you can play whatever you like!"
                               if joker_action != trump_card else
-                              "You dont have a requested card, you can play whatever you like!")
+                              "You dont have a requested card in your hand, you can play whatever you like!")
                         while True:
                             card_to_play = input(f"{'*' * 50}\n"
                                                  f"{player_name}, it's your turn to play!\n"
