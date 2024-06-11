@@ -2,10 +2,13 @@ from players import user_names
 from total_cards_generator import total_cards_generator
 from game_setup import GameSetup
 from card_distributions import three_card_distribution, field_card_distribution, remaining_card_distribution
-from playing_game import round_winner_calculator, player_turn
+from playing_game import round_winner_calculator
+
+ROUND = 8
 
 
 def main():
+    global ROUND
     player_names = user_names()
     player_one = player_names[0]
     player_two = player_names[1]
@@ -49,14 +52,14 @@ def main():
         round_counter += 1
         print("*" * 50)
         print("Total Game Score:", total_game_score)
-        if total_game_score[f"{player_one}"] == 8:
+        if total_game_score[f"{player_one}"] == ROUND:
             break
-        elif total_game_score[f"{player_two}"] == 8:
+        elif total_game_score[f"{player_two}"] == ROUND:
             break
     print("*" * 50)
-    if total_game_score[f"{player_one}"] == 8:
+    if total_game_score[f"{player_one}"] == ROUND:
         print(f"{player_one} has won the match!")
-    elif total_game_score[f"{player_two}"] == 8:
+    elif total_game_score[f"{player_two}"] == ROUND:
         print(f"{player_two} has won the match!")
 
 
