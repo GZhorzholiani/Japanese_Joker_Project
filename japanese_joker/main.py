@@ -9,7 +9,6 @@ def main():
     player_names = user_names()
     player_one = player_names[0]
     player_two = player_names[1]
-    print(player_names)
     total_game_score = {f"{player_one}": 0, f"{player_two}": 0}
     round_counter = 1
     while True:
