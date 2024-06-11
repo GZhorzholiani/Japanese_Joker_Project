@@ -80,7 +80,9 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         if card[0] == trump_card:
                             available_cards_to_play.append(card)
                     if len(available_cards_to_play) == 0:
-                        print("You dont have a requested card nor a trump card in your hand, so you can play whatever you like!")
+                        print("You dont have a requested card nor a trump card in your hand, so you can play whatever you like!"
+                              if joker_action != trump_card else
+                              "You dont have a requested card, you can play whatever you like!")
                         while True:
                             card_to_play = input(f"{'*' * 50}\n"
                                                  f"{player_name}, it's your turn to play!\n"

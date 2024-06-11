@@ -4,7 +4,7 @@ from game_setup import GameSetup
 from card_distributions import three_card_distribution, field_card_distribution, remaining_card_distribution
 from playing_game import round_winner_calculator
 
-ROUND = 1
+ROUND = 8
 
 
 def main():
