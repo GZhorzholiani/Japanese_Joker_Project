@@ -151,10 +151,14 @@ def round_winner_calculator(field_cards, players_final_cards_in_hands, total_car
         else:
             player_two_card, joker_action = player_turn(player_two, players_final_cards_in_hands, field_cards, trump_card, card_suits)
             player_one_card = player_turn(player_one, players_final_cards_in_hands, field_cards, trump_card, card_suits, player_two_card, joker_action, total_cards_with_trump)
-        if player_two_card is None or player_one_card is None:
+        if player_two_card is None:
             player_scores[f"{player_one}"] += 1
             print(f"One point to - {player_one}")
             starting_player = player_one
+        elif player_one_card is None:
+            player_scores[f"{player_two}"] += 1
+            print(f"One point to - {player_two}")
+            starting_player = player_two
         elif total_cards_with_trump[player_one_card] > total_cards_with_trump[player_two_card]:
             player_scores[f"{player_one}"] += 1
             print(f"One point to - {player_one}")
