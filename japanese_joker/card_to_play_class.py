@@ -51,7 +51,7 @@ class CardToPlay:
                 print(f"{'*' * 50}")
                 break
             elif card_to_play in self.field_cards[self.player_name]['face_up']:
-                self.remove_played_card(card_to_play)
+                self.remove_played_card_from_the_field(card_to_play)
                 print(f"{'*' * 50}")
                 break
             print(f"{'*' * 50}")
@@ -71,7 +71,7 @@ class CardToPlay:
                 print(f"{'*' * 50}")
                 break
             elif card_to_play in self.field_cards[self.player_name]['face_up'] and card_to_play in self.available_cards_to_play:
-                self.remove_played_card(card_to_play)
+                self.remove_played_card_from_the_field(card_to_play)
                 print(f"{'*' * 50}")
                 break
             print(f"{'*' * 50}")
@@ -100,7 +100,7 @@ class CardToPlay:
         if "RJOKER" in self.players_final_cards_in_hands[self.player_name] + self.field_cards[self.player_name]["face_up"]:
             self.available_cards_to_play.append("RJOKER")
 
-    def remove_played_card(self, card_to_play):
+    def remove_played_card_from_the_field(self, card_to_play):
         card_to_play_index = self.field_cards[self.player_name]['face_up'].index(card_to_play)
         self.field_cards[self.player_name]['face_up'].remove(card_to_play)
         self.players_final_cards_in_hands[self.player_name].append(self.field_cards[self.player_name]['face_down'][card_to_play_index])
