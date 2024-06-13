@@ -102,3 +102,9 @@ class CardToPlay:
             print(f"{'*' * 50}")
             print("You have chosen a wrong card, Please choose again!")
         return card_to_play
+
+    def add_joker_if_available(self):
+        if "BJOKER" in self.players_final_cards_in_hands[self.player_name] + self.field_cards[self.player_name]["face_up"]:
+            self.available_cards_to_play.append("BJOKER")
+        if "RJOKER" in self.players_final_cards_in_hands[self.player_name] + self.field_cards[self.player_name]["face_up"]:
+            self.available_cards_to_play.append("RJOKER")

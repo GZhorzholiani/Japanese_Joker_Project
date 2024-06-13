@@ -27,11 +27,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
     else:
         available_cards_to_play = []
         if previous_player_card in ("BJOKER", "RJOKER"):
-            for joker in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                if joker == "BJOKER":
-                    available_cards_to_play.append(joker)
-                elif joker == "RJOKER":
-                    available_cards_to_play.append(joker)
+            add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
+            add_joker_if_possible.add_joker_if_available()
             joker_action_request = {}
             for playable_card in players_final_cards_in_hands[player_name]:
                 if playable_card[0] == joker_action:
@@ -57,11 +54,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                             card_to_play = "BJOKER"
                         return card_to_play
                     else:
-                        for joker in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                            if joker == "BJOKER":
-                                available_cards_to_play.append(joker)
-                            elif joker == "RJOKER":
-                                available_cards_to_play.append(joker)
+                        add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
+                        add_joker_if_possible.add_joker_if_available()
                         print("You dont have a requested card but you have a trump card!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         player_action.no_requested_card()
@@ -81,10 +75,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                 if playable_card[0] == trump_card:
                     available_cards_to_play.append(playable_card)
             if len(available_cards_to_play) != 0:
-                if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                    available_cards_to_play.append("BJOKER")
-                if "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                    available_cards_to_play.append("RJOKER")
+                add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
+                add_joker_if_possible.add_joker_if_available()
                 player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                 card_to_play = player_action.no_requested_card()
                 return card_to_play
@@ -98,10 +90,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                 if playable_card[0] == previous_player_card[0]:
                     available_cards_to_play.append(playable_card)
             if len(available_cards_to_play) != 0:
-                if "BJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                    available_cards_to_play.append("BJOKER")
-                if "RJOKER" in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                    available_cards_to_play.append("RJOKER")
+                add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
+                add_joker_if_possible.add_joker_if_available()
                 player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                 card_to_play = player_action.no_requested_card()
                 return card_to_play
@@ -112,11 +102,8 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         if card[0] == trump_card:
                             available_cards_to_play.append(card)
                     if len(available_cards_to_play) != 0:
-                        for joker in players_final_cards_in_hands[player_name] + field_cards[player_name]["face_up"]:
-                            if joker == "BJOKER":
-                                available_cards_to_play.append(joker)
-                            if joker == "RJOKER":
-                                available_cards_to_play.append(joker)
+                        add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
+                        add_joker_if_possible.add_joker_if_available()
                         print("You dont have a requested card but you have a trump card!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         card_to_play = player_action.no_requested_card()
