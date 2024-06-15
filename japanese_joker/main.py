@@ -3,8 +3,9 @@ from total_cards_generator import total_cards_generator
 from game_setup import GameSetup
 from card_distributions import three_card_distribution, field_card_distribution, remaining_card_distribution
 from playing_game import round_winner_calculator
+from deck_visualization import create_visualized_deck_dict, card_to_visualized_card
 
-ROUND = 8
+ROUND = 2
 
 
 def main():
@@ -14,6 +15,7 @@ def main():
     player_two = player_names[1]
     total_game_score = {f"{player_one}": 0, f"{player_two}": 0}
     round_counter = 1
+    visualized_deck = create_visualized_deck_dict()
     while True:
         print("*" * 50)
         print(f"Round {round_counter}, LETS GO!")
@@ -26,7 +28,9 @@ def main():
         print(f"Trump Card Chooser: {trump_card_chooser_player}")
         print("*" * 50)
         first_three_cards, remaining_cards_30 = three_card_distribution(total_cards, trump_card_chooser_player, card_distributor_player)
-        print(f"{trump_card_chooser_player}: {first_three_cards[trump_card_chooser_player]}")
+        print(f"{trump_card_chooser_player}, your first three cards: {' '.join(card_to_visualized_card(first_three_cards[trump_card_chooser_player], visualized_deck))}")
+        print(f"{trump_card_chooser_player}, your first three cards: {first_three_cards[trump_card_chooser_player]}")
+        print(f"{trump_card_chooser_player}, your first three cards: {', '.join(list(map(lambda a, b: f'{a} - {b}', first_three_cards[trump_card_chooser_player], card_to_visualized_card(first_three_cards[trump_card_chooser_player], visualized_deck))))}")
         print("*" * 50)
         trump_card, card_suits = gameplay.trump_card(trump_card_chooser_player)
         print(f"Trump Card is - {trump_card}")
