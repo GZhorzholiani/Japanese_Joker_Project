@@ -2,6 +2,7 @@ from deck_visualization import create_visualized_deck_dict, card_to_visualized_c
 visualized_deck = create_visualized_deck_dict()
 
 
+# A Class that asks for user's input based on the situation
 class CardToPlay:
     def __init__(self, player_name, players_final_cards_in_hands, field_cards, available_cards_to_play=None):
         self.player_name = player_name
@@ -41,6 +42,7 @@ class CardToPlay:
     def available_cards_to_play(self, value):
         self._available_cards_to_play = value
 
+    # User can play any card they want from their hand or their field
     def any_card_to_play(self):
         card_to_play_from_hand = {}
         card_to_play_from_field = {}
@@ -87,6 +89,7 @@ class CardToPlay:
             self.remove_played_card_from_the_field(card_to_play)
         return card_to_play
 
+    # User doesn't have a requested card, so program acts accordingly
     def no_requested_card(self):
         card_to_play = self.available_card_to_play_with_visuals()
         if card_to_play in self.players_final_cards_in_hands[self.player_name] and card_to_play in self.available_cards_to_play:
@@ -97,6 +100,7 @@ class CardToPlay:
             print(f"{'*' * 50}")
         return card_to_play
 
+    # When a user request a specific type of card with joker
     def joker_action_request_card(self):
         card_to_play = self.available_card_to_play_with_visuals()
         if card_to_play in self.available_cards_to_play:
@@ -108,18 +112,21 @@ class CardToPlay:
                 print(f"{'*' * 50}")
         return card_to_play
 
+    # Adds joker to players playable cards if possible
     def add_joker_if_available(self):
         if "BJOKER" in self.players_final_cards_in_hands[self.player_name] + self.field_cards[self.player_name]["face_up"]:
             self.available_cards_to_play.append("BJOKER")
         if "RJOKER" in self.players_final_cards_in_hands[self.player_name] + self.field_cards[self.player_name]["face_up"]:
             self.available_cards_to_play.append("RJOKER")
 
+    # Removing played card from the remaining cards
     def remove_played_card_from_the_field(self, card_to_play):
         card_to_play_index = self.field_cards[self.player_name]['face_up'].index(card_to_play)
         self.field_cards[self.player_name]['face_up'].remove(card_to_play)
         self.players_final_cards_in_hands[self.player_name].append(self.field_cards[self.player_name]['face_down'][card_to_play_index])
         self.field_cards[self.player_name]['face_down'].remove(self.field_cards[self.player_name]['face_down'][card_to_play_index])
 
+    # Added visual effects to the player's cards
     def available_card_to_play_with_visuals(self):
         available_card_to_play = {}
         available_card_counter = 1

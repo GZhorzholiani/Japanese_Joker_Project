@@ -1,6 +1,7 @@
 from itertools import product
 
 
+# Creates a deck for visualizing
 def create_visualized_deck():
     suits = ['C', 'S', 'H', 'D']
     ranks = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
@@ -12,6 +13,7 @@ def create_visualized_deck():
     return deck
 
 
+# Formats cards with Unicode specific meanings in order to get visual effects
 def format_card(card):
     suit_symbols = {
         "C": chr(9827),
@@ -41,10 +43,12 @@ def format_card(card):
     return formatted_card
 
 
+# Returns fully formatted deck
 def get_formatted_deck(deck):
     return [format_card(card) for card in deck]
 
 
+# Creates visualized deck dictionary
 def create_visualized_deck_dict():
     visualized_deck = get_formatted_deck(create_visualized_deck())
     visualized_deck_dict = {"RJOKER": visualized_deck[34], "BJOKER": visualized_deck[35], "H6": visualized_deck[0], "D6": visualized_deck[1]}
@@ -75,6 +79,7 @@ def create_visualized_deck_dict():
     return visualized_deck_dict
 
 
+# Changes a card code (CA - Ace of Clubs) to code, which later will be printed as an actual card
 def card_to_visualized_card(user_cards: list, visualized_deck_dict: dict) -> list:
     visualized_list_of_cards = []
     for i in user_cards:

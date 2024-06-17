@@ -7,6 +7,7 @@ from deck_visualization import create_visualized_deck_dict, card_to_visualized_c
 visualized_deck = create_visualized_deck_dict()
 
 
+# Based on which player's turn it is, this function adds restrictions and provides user with available cards to play
 def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_card, card_suits, previous_player_card=None, joker_action=None, total_cards_with_trump=None):
     card_suit_visual = {"C": '\x1b[107m\x1b[30m♣\x1b[0m', "S": '\x1b[107m\x1b[30m♠\x1b[0m',
                         "H": '\x1b[107m\x1b[31m♥\x1b[0m', "D": '\x1b[107m\x1b[31m♦\x1b[0m'}
@@ -136,6 +137,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         return None
 
 
+# Plays a full round of game where max score is 18
 def round_winner_calculator(field_cards, players_final_cards_in_hands, total_cards_with_trump, trump_card, card_suits):
     player_one = list(players_final_cards_in_hands.keys())[0]
     player_two = list(players_final_cards_in_hands.keys())[1]

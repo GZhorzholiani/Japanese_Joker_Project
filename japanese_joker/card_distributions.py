@@ -4,6 +4,7 @@ from players import user_names
 from total_cards_generator import total_cards_generator
 
 
+# Distributes first three cards to each player
 def three_card_distribution(total_cards, trump_card_chooser, card_distributor):
     players_and_their_cards = {f"{trump_card_chooser}": [],
                                f"{card_distributor}": []}
@@ -15,6 +16,7 @@ def three_card_distribution(total_cards, trump_card_chooser, card_distributor):
     return players_and_their_cards, total_cards
 
 
+# Distributes cards for each player on the field
 def field_card_distribution(remaining_cards_30, trump_card_chooser, card_distributor):
     field_cards = {f"{trump_card_chooser}": {
                                             "face_down": [], "face_up": []},
@@ -31,6 +33,7 @@ def field_card_distribution(remaining_cards_30, trump_card_chooser, card_distrib
     return remaining_cards_10, field_cards
 
 
+# Distributes the remaining cards to each player
 def remaining_card_distribution(remaining_cards_10, players_and_their_cards):
     trump_card_chooser, card_distributor = map(lambda player: player, list(players_and_their_cards.keys()))
     while len(remaining_cards_10) != 0:
