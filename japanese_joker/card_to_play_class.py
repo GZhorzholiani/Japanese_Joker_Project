@@ -65,8 +65,12 @@ class CardToPlay:
               f"Available cards on the field are: {' '.join(card_to_visualized_card(self.field_cards[self.player_name]['face_up'], visualized_deck))}")
         while True:
             player_input_card_number = input(f"Please, choose a number associated with a card to play:\n"
+                                             f"{', '.join([f'{key} - {value}' for key, value in playable_cards_with_numbers_hand.items()])}: "
+                                             if len(playable_cards_with_numbers_hand.keys()) != 0 and len(playable_cards_with_numbers_field.keys()) == 0 else
+                                             f"Please, choose a number associated with a card to play:\n"
                                              f"{', '.join([f'{key} - {value}' for key, value in playable_cards_with_numbers_hand.items()])}\n"
-                                             f"{', '.join([f'{key} - {value}' for key, value in playable_cards_with_numbers_field.items()])} : ")
+                                             f"{', '.join([f'{key} - {value}' for key, value in playable_cards_with_numbers_field.items()])} : "
+                                             )
             if player_input_card_number in card_to_play_from_hand.keys():
                 card_to_play = card_to_play_from_hand[player_input_card_number]
                 print(f"{'*' * 50}")

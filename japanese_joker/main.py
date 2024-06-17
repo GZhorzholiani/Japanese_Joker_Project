@@ -5,17 +5,21 @@ from card_distributions import three_card_distribution, field_card_distribution,
 from playing_game import round_winner_calculator
 from deck_visualization import create_visualized_deck_dict, card_to_visualized_card
 
-ROUND = 2
+ROUND = 8
 
 
 def main():
     global ROUND
+    visualized_deck = create_visualized_deck_dict()
+    print(f"{'*' * 64}\n"
+          f"Game instructions: Jokers are represented as follow: {card_to_visualized_card(['RJOKER'], visualized_deck)[0]}"
+          f" and {card_to_visualized_card(['BJOKER'], visualized_deck)[0]}")
+    print("*" * 64)
     player_names = user_names()
     player_one = player_names[0]
     player_two = player_names[1]
     total_game_score = {f"{player_one}": 0, f"{player_two}": 0}
     round_counter = 1
-    visualized_deck = create_visualized_deck_dict()
     while True:
         print("*" * 50)
         print(f"Round {round_counter}, LETS GO!")

@@ -8,31 +8,31 @@ visualized_deck = create_visualized_deck_dict()
 
 
 def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_card, card_suits, previous_player_card=None, joker_action=None, total_cards_with_trump=None):
+    card_suit_visual = {"C": '\x1b[107m\x1b[30m♣\x1b[0m', "S": '\x1b[107m\x1b[30m♠\x1b[0m',
+                        "H": '\x1b[107m\x1b[31m♥\x1b[0m', "D": '\x1b[107m\x1b[31m♦\x1b[0m'}
     if previous_player_card is None:
         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards)
         card_to_play = player_action.any_card_to_play()
-        trump_card_visual = {"C": '\x1b[107m\x1b[30m♣\x1b[0m', "S": '\x1b[107m\x1b[30m♠\x1b[0m',
-                             "H": '\x1b[107m\x1b[31m♥\x1b[0m', "D": '\x1b[107m\x1b[31m♦\x1b[0m'}
         if card_to_play in ("BJOKER", "RJOKER"):
             while True:
                 if trump_card == "NONE":
-                    joker_action = input(f"Which highest card do you request? Type {card_suits[0]} for {trump_card_visual[card_suits[0]]} ,"
-                                         f"{card_suits[1]} for {trump_card_visual[card_suits[1]]},"
-                                         f"{card_suits[2]} for {trump_card_visual[card_suits[2]]},"
-                                         f"{card_suits[3]} for {trump_card_visual[card_suits[3]]}: ").upper().strip()
+                    joker_action = input(f"Which highest card do you request? Type {card_suits[0]} for {card_suit_visual[card_suits[0]]} ,"
+                                         f"{card_suits[1]} for {card_suit_visual[card_suits[1]]},"
+                                         f"{card_suits[2]} for {card_suit_visual[card_suits[2]]},"
+                                         f"{card_suits[3]} for {card_suit_visual[card_suits[3]]}: ").upper().strip()
                     if joker_action in card_suits:
                         break
                 else:
-                    joker_action = input(f"Which highest card do you request?: Type {card_suits[0]} for {trump_card_visual[card_suits[0]]}, "
-                                         f"{card_suits[1]} for {trump_card_visual[card_suits[1]]}, "
-                                         f"{card_suits[2]} for {trump_card_visual[card_suits[2]]}, "
-                                         f"or a trump: {trump_card[0]} - {trump_card_visual[trump_card[0]]}: ").upper().strip()
+                    joker_action = input(f"Which highest card do you request?: Type {card_suits[0]} for {card_suit_visual[card_suits[0]]}, "
+                                         f"{card_suits[1]} for {card_suit_visual[card_suits[1]]}, "
+                                         f"{card_suits[2]} for {card_suit_visual[card_suits[2]]}, "
+                                         f"or a trump: {trump_card[0]} - {card_suit_visual[trump_card[0]]}: ").upper().strip()
                     if joker_action in ["C", "S", "H", "D"]:
                         break
         if joker_action is None:
             print(f"{player_name} has played - {card_to_visualized_card([card_to_play], visualized_deck)[0]}")
         else:
-            print(f"{player_name} has played - {card_to_visualized_card([card_to_play], visualized_deck)[0]} and requested Highest - {trump_card_visual[joker_action]}")
+            print(f"{player_name} has played - {card_to_visualized_card([card_to_play], visualized_deck)[0]} and requested Highest - {card_suit_visual[joker_action]}")
         return card_to_play, joker_action
     else:
         available_cards_to_play = []
@@ -45,7 +45,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     joker_action_request[playable_card] = 0
             if len(joker_action_request) == 0:
                 if trump_card == "NONE":
-                    print("You dont have a requested card, you can play whatever you like!")
+                    print(f"You dont have a requested card {card_suit_visual[joker_action]}, you can play whatever you like!")
                     player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards)
                     card_to_play = player_action.any_card_to_play()
                     return card_to_play
@@ -55,9 +55,9 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         if card[0] == trump_card:
                             available_cards_to_play.append(card)
                     if len(available_cards_to_play) == 0:
-                        print("You dont have a requested card nor a trump card in your hand, so you can play whatever you like!"
+                        print(f"You dont have a requested card {card_suit_visual[joker_action]}, nor a trump card {card_suit_visual[trump_card]} in your hand, so you can play whatever you like!"
                               if joker_action != trump_card else
-                              "You dont have a requested card in your hand, you can play whatever you like!")
+                              f"You dont have a requested card {card_suit_visual[joker_action]} in your hand, you can play whatever you like!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards)
                         card_to_play = player_action.any_card_to_play()
                         if card_to_play[0] == trump_card:
@@ -66,7 +66,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     else:
                         add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         add_joker_if_possible.add_joker_if_available()
-                        print("You dont have a requested card but you have a trump card!")
+                        print(f"You dont have a requested card {card_suit_visual[joker_action]} but you have a trump card {card_suit_visual[trump_card]}!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         player_action.no_requested_card()
                         card_to_play = "BJOKER"
@@ -91,7 +91,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                 card_to_play = player_action.no_requested_card()
                 return card_to_play
             else:
-                print("You dont have a trump card to play, you can play whatever you like!")
+                print(f"You dont have a trump card {card_suit_visual[trump_card]} to play, you can play whatever you like!")
                 player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards)
                 card_to_play = player_action.any_card_to_play()
                 return card_to_play
@@ -114,12 +114,12 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     if len(available_cards_to_play) != 0:
                         add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         add_joker_if_possible.add_joker_if_available()
-                        print("You dont have a requested card but you have a trump card!")
+                        print(f"You dont have a requested card {card_suit_visual[previous_player_card[0]]} but you have a trump card {card_suit_visual[trump_card]}!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         card_to_play = player_action.no_requested_card()
                         return card_to_play
                     else:
-                        print(f"You dont have a {previous_player_card[0]} suit nor you have a trump card to play, you can play whatever you like!")
+                        print(f"You dont have a {card_suit_visual[previous_player_card[0]]} suit nor you have a trump card {card_suit_visual[trump_card]} to play, you can play whatever you like!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards)
                         card_to_play = player_action.any_card_to_play()
                         if card_to_play in ("BJOKER", "RJOKER"):
@@ -127,7 +127,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                         else:
                             return None
                 else:
-                    print(f"You dont have {previous_player_card[0]} card to play, you can play whatever you like!")
+                    print(f"You dont have {card_suit_visual[previous_player_card[0]]} card to play, you can play whatever you like!")
                     player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards)
                     card_to_play = player_action.any_card_to_play()
                     if card_to_play in ("BJOKER", "RJOKER"):
@@ -141,7 +141,7 @@ def round_winner_calculator(field_cards, players_final_cards_in_hands, total_car
     player_two = list(players_final_cards_in_hands.keys())[1]
     starting_player = player_one
     player_scores = {f"{player_one}": 0, f"{player_two}": 0}
-    while sum([player_scores[f"{player_one}"], player_scores[f"{player_two}"]]) < 2:
+    while sum([player_scores[f"{player_one}"], player_scores[f"{player_two}"]]) < 18:
         if starting_player == player_one:
             player_one_card, joker_action = player_turn(player_one, players_final_cards_in_hands, field_cards, trump_card, card_suits)
             player_two_card = player_turn(player_two, players_final_cards_in_hands, field_cards, trump_card, card_suits, player_one_card, joker_action, total_cards_with_trump)
