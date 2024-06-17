@@ -16,20 +16,23 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
         card_to_play = player_action.any_card_to_play()
         if card_to_play in ("BJOKER", "RJOKER"):
             while True:
-                if trump_card == "NONE":
-                    joker_action = input(f"Which highest card do you request? Type {card_suits[0]} for {card_suit_visual[card_suits[0]]} ,"
-                                         f"{card_suits[1]} for {card_suit_visual[card_suits[1]]},"
-                                         f"{card_suits[2]} for {card_suit_visual[card_suits[2]]},"
-                                         f"{card_suits[3]} for {card_suit_visual[card_suits[3]]}: ").upper().strip()
-                    if joker_action in card_suits:
-                        break
-                else:
-                    joker_action = input(f"Which highest card do you request?: Type {card_suits[0]} for {card_suit_visual[card_suits[0]]}, "
-                                         f"{card_suits[1]} for {card_suit_visual[card_suits[1]]}, "
-                                         f"{card_suits[2]} for {card_suit_visual[card_suits[2]]}, "
-                                         f"or a trump: {trump_card[0]} - {card_suit_visual[trump_card[0]]}: ").upper().strip()
-                    if joker_action in ["C", "S", "H", "D"]:
-                        break
+                try:
+                    if trump_card == "NONE":
+                        joker_action = input(f"Which highest card do you request? Type {card_suits[0]} for {card_suit_visual[card_suits[0]]} ,"
+                                             f"{card_suits[1]} for {card_suit_visual[card_suits[1]]},"
+                                             f"{card_suits[2]} for {card_suit_visual[card_suits[2]]},"
+                                             f"{card_suits[3]} for {card_suit_visual[card_suits[3]]}: ").upper().strip()
+                        if joker_action in card_suits:
+                            break
+                    else:
+                        joker_action = input(f"Which highest card do you request?: Type {card_suits[0]} for {card_suit_visual[card_suits[0]]}, "
+                                             f"{card_suits[1]} for {card_suit_visual[card_suits[1]]}, "
+                                             f"{card_suits[2]} for {card_suit_visual[card_suits[2]]}, "
+                                             f"or a trump: {trump_card[0]} - {card_suit_visual[trump_card[0]]}: ").upper().strip()
+                        if joker_action in ["C", "S", "H", "D"]:
+                            break
+                except ValueError:
+                    print("Oops, something went wrong, please try again")
         if joker_action is None:
             print(f"{player_name} has played - {card_to_visualized_card([card_to_play], visualized_deck)[0]}")
         else:
