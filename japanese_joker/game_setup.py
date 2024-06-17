@@ -32,14 +32,17 @@ class GameSetup:
 
     @staticmethod
     def trump_card(trump_card_chooser):
-        card_suits = ["S", "D", "C", "H", "NONE"]
+        card_suits = ["C", "S", "H", "D", "NONE"]
+        trump_card_visual = {"C": '\x1b[107m\x1b[30m♣\x1b[0m', "S": '\x1b[107m\x1b[30m♠\x1b[0m',
+                             "H": '\x1b[107m\x1b[31m♥\x1b[0m', "D": '\x1b[107m\x1b[31m♦\x1b[0m'}
         while True:
-            chosen_trump_card = input(f"{trump_card_chooser} choose the trump card S, D, C, H, None: ").upper().strip()
+            chosen_trump_card = input(f"{trump_card_chooser} choose the trump card, type C for {trump_card_visual['C']}, S for {trump_card_visual['S']}, "
+                                      f"H for {trump_card_visual['H']}, D for {trump_card_visual['D']} or None: ").upper().strip()
             if chosen_trump_card in card_suits:
                 card_suits.remove(chosen_trump_card)
                 if chosen_trump_card != "NONE":
                     card_suits.remove("NONE")
-                return chosen_trump_card, card_suits
+                return chosen_trump_card, card_suits, trump_card_visual
 
     @staticmethod
     def trump_card_effect(total_cards: dict, chosen_trump_card):
@@ -57,7 +60,7 @@ def main():
     print(card_distributor_player)
     print(trump_card_chooser_player)
     print("*"*50)
-    trump_card, card_suits = gameplay.trump_card(trump_card_chooser_player)
+    trump_card, card_suits, trump_card_visual = gameplay.trump_card(trump_card_chooser_player)
     print(trump_card)
     trump_total_cards = gameplay.trump_card_effect(total_cards_generator(), trump_card)
     print(trump_total_cards)

@@ -29,16 +29,13 @@ def main():
         print("*" * 50)
         first_three_cards, remaining_cards_30 = three_card_distribution(total_cards, trump_card_chooser_player, card_distributor_player)
         print(f"{trump_card_chooser_player}, your first three cards: {' '.join(card_to_visualized_card(first_three_cards[trump_card_chooser_player], visualized_deck))}")
-        print(f"{trump_card_chooser_player}, your first three cards: {first_three_cards[trump_card_chooser_player]}")
-        print(f"{trump_card_chooser_player}, your first three cards: {', '.join(list(map(lambda a, b: f'{a} - {b}', first_three_cards[trump_card_chooser_player], card_to_visualized_card(first_three_cards[trump_card_chooser_player], visualized_deck))))}")
         print("*" * 50)
-        trump_card, card_suits = gameplay.trump_card(trump_card_chooser_player)
-        print(f"Trump Card is - {trump_card}")
+        trump_card, card_suits, trump_card_visual = gameplay.trump_card(trump_card_chooser_player)
+        print("Trump Card is -", f"{trump_card_visual[trump_card]}" if trump_card != "NONE" else "None")
         total_cards_with_trump = gameplay.trump_card_effect(total_cards_generator(), trump_card)
         remaining_10_cards, field_cards = field_card_distribution(remaining_cards_30, trump_card_chooser_player, card_distributor_player)
         players_final_cards_in_hands = remaining_card_distribution(remaining_10_cards, first_three_cards)
         round_result = round_winner_calculator(field_cards, players_final_cards_in_hands, total_cards_with_trump, trump_card, card_suits)
-        print("Round Results:", round_result)
         if round_result[trump_card_chooser_player] > round_result[card_distributor_player]:
             print(f"This round goes to {trump_card_chooser_player}")
             if trump_card_chooser_player == player_one:
@@ -55,7 +52,7 @@ def main():
             print("This round is a Tie!")
         round_counter += 1
         print("*" * 50)
-        print("Total Game Score:", total_game_score)
+        print(f"Total Game Score: {', '.join([f'{key} - {value}' for key, value in total_game_score.items()])}")
         if total_game_score[f"{player_one}"] == ROUND:
             break
         elif total_game_score[f"{player_two}"] == ROUND:

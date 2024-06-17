@@ -85,6 +85,9 @@ def card_to_visualized_card(user_cards: list, visualized_deck_dict: dict) -> lis
 def main():
     visualized_deck_dict = create_visualized_deck_dict()
     print(visualized_deck_dict)
+    print("\x1b[107m\x1b[31m♥\x1b[0m")
+    for i in visualized_deck_dict.values():
+        print(len(i), i)
 
 
 if __name__ == "__main__":
