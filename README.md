@@ -18,8 +18,8 @@ Two player card game
 * The game lasts until either player has won 8 rounds
 
 ### Game Restrictions
-* If a player who begins a turn plays a joker, he/she may request the highest card of any suit from the second players hand. Second player must play the requested card if they have it, or they can play a joker if available and score a point. If second player doesn't have a requested card, they can play whatever they like. If a trump card is in play but was not requested by the first player and if second player doesn't have a requested card, but they have a trump card, they can play it and score a point.
-* If second player doesn't have a suit which player who began the round has played, he/she can play whatever they like but the first player will score the point. But if trump card is in play and second player doesn't have a requested suit, but they have a trump card, they can play it and score a point
+* If a player who begins a turn plays a joker, he/she may request the highest card of any suit from the second players hand. Second player must play the requested card if they have it, or they can play a joker if available and score a point. If second player doesn't have a requested card, they can play whatever they like. If a trump card is in play but was not requested by the first player and if second player doesn't have a requested card, but they have a trump card, they must play it and score a point.
+* If second player doesn't have a suit which player who began the round has played, he/she can play whatever they like but the first player will score the point. But if trump card is in play and second player doesn't have a requested suit in their hand, but they have a trump card in their hand and/or on the board, they can play it and score a point
 
 ## Technical design document
 * Create a function for user's nickname inputs

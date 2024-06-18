@@ -70,7 +70,7 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                     else:
                         add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         add_joker_if_possible.add_joker_if_available()
-                        print(f"You dont have a requested card {card_suit_visual[joker_action]} but you have a trump card {card_suit_visual[trump_card]}!")
+                        print(f"You dont have a requested card {card_suit_visual[joker_action]} in your hand, but you have a trump card {card_suit_visual[trump_card]}!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
                         player_action.no_requested_card()
                         card_to_play = "BJOKER"
