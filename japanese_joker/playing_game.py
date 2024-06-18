@@ -18,9 +18,9 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
             while True:
                 try:
                     if trump_card == "NONE":
-                        joker_action = input(f"Which highest card do you request? Type {card_suits[0]} for {card_suit_visual[card_suits[0]]} ,"
-                                             f"{card_suits[1]} for {card_suit_visual[card_suits[1]]},"
-                                             f"{card_suits[2]} for {card_suit_visual[card_suits[2]]},"
+                        joker_action = input(f"Which highest card do you request? Type {card_suits[0]} for {card_suit_visual[card_suits[0]]}, "
+                                             f"{card_suits[1]} for {card_suit_visual[card_suits[1]]}, "
+                                             f"{card_suits[2]} for {card_suit_visual[card_suits[2]]}, "
                                              f"{card_suits[3]} for {card_suit_visual[card_suits[3]]}: ").upper().strip()
                         if joker_action in card_suits:
                             break
