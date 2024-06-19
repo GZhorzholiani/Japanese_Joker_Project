@@ -6,7 +6,10 @@ def user_names():
         while True:
             player_name = input(f"Please enter player {counter} name: ").capitalize().strip()
             if player_name in all_players:
-                print(f"Name {player_name} already taken, please enter a different name!")
+                print(f"Name {player_name} is already taken, please enter a different name!")
+                continue
+            elif len(player_name) == 0:
+                print("Name must be at least one symbol")
                 continue
             else:
                 all_players.append(player_name)

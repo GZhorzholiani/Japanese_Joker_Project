@@ -151,7 +151,6 @@ class CardToPlay:
                                                  f"{', '.join([f'{key} - {value}' for key, value in available_card_to_play_with_visuals.items()])} : ")
                 if player_input_card_number in available_card_to_play.keys():
                     card_to_play = available_card_to_play[player_input_card_number]
-                    print(f"{'*' * 50}")
                     break
                 print(f"{'*' * 50}")
                 print("You have chosen a wrong card, Please choose again!")
