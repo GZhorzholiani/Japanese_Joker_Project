@@ -64,8 +64,6 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
                               f"You dont have a requested card {card_suit_visual[joker_action]} in your hand, you can play whatever you like!")
                         player_action = CardToPlay(player_name, players_final_cards_in_hands, field_cards)
                         card_to_play = player_action.any_card_to_play()
-                        if card_to_play[0] == trump_card:
-                            card_to_play = "BJOKER"
                         return card_to_play
                     else:
                         add_joker_if_possible = CardToPlay(player_name, players_final_cards_in_hands, field_cards, available_cards_to_play)
@@ -144,35 +142,30 @@ def player_turn(player_name, players_final_cards_in_hands, field_cards, trump_ca
 def round_winner_calculator(field_cards, players_final_cards_in_hands, total_cards_with_trump, trump_card, card_suits):
     player_one = list(players_final_cards_in_hands.keys())[0]
     player_two = list(players_final_cards_in_hands.keys())[1]
-    starting_player = player_one
+    first_player_to_go = player_one
     player_scores = {f"{player_one}": 0, f"{player_two}": 0}
     while sum([player_scores[f"{player_one}"], player_scores[f"{player_two}"]]) < 18:
-        if starting_player == player_one:
+        if first_player_to_go == player_one:
             player_one_card, joker_action = player_turn(player_one, players_final_cards_in_hands, field_cards, trump_card, card_suits)
             player_two_card = player_turn(player_two, players_final_cards_in_hands, field_cards, trump_card, card_suits, player_one_card, joker_action, total_cards_with_trump)
+            if player_two_card is None or total_cards_with_trump[player_one_card] > total_cards_with_trump[player_two_card]:
+                player_scores[f"{player_one}"] += 1
+                print(f"One point to - {player_one}")
+            elif total_cards_with_trump[player_one_card] <= total_cards_with_trump[player_two_card]:
+                player_scores[f"{player_two}"] += 1
+                print(f"One point to - {player_two}")
+                first_player_to_go = player_two
         else:
             player_two_card, joker_action = player_turn(player_two, players_final_cards_in_hands, field_cards, trump_card, card_suits)
             player_one_card = player_turn(player_one, players_final_cards_in_hands, field_cards, trump_card, card_suits, player_two_card, joker_action, total_cards_with_trump)
-        if player_two_card is None:
-            player_scores[f"{player_one}"] += 1
-            print(f"One point to - {player_one}")
-            print(f"Total score for this round : {player_one} - {player_scores[player_one]}. {player_two} - {player_scores[player_two]}")
-            starting_player = player_one
-        elif player_one_card is None:
-            player_scores[f"{player_two}"] += 1
-            print(f"One point to - {player_two}")
-            print(f"Total score for this round : {player_one} - {player_scores[player_one]}. {player_two} - {player_scores[player_two]}")
-            starting_player = player_two
-        elif total_cards_with_trump[player_one_card] > total_cards_with_trump[player_two_card]:
-            player_scores[f"{player_one}"] += 1
-            print(f"One point to - {player_one}")
-            print(f"Total score for this round : {player_one} - {player_scores[player_one]}. {player_two} - {player_scores[player_two]}")
-            starting_player = player_one
-        elif total_cards_with_trump[player_one_card] <= total_cards_with_trump[player_two_card]:
-            player_scores[f"{player_two}"] += 1
-            print(f"One point to - {player_two}")
-            print(f"Total score for this round : {player_one} - {player_scores[player_one]}. {player_two} - {player_scores[player_two]}")
-            starting_player = player_two
+            if player_one_card is None or total_cards_with_trump[player_two_card] > total_cards_with_trump[player_one_card]:
+                player_scores[f"{player_two}"] += 1
+                print(f"One point to - {player_two}")
+            else:
+                player_scores[f"{player_one}"] += 1
+                print(f"One point to - {player_one}")
+                first_player_to_go = player_one
+        print(f"Total score for this round : {player_one} - {player_scores[player_one]}. {player_two} - {player_scores[player_two]}")
     return player_scores
 
 
