@@ -24,16 +24,20 @@ class GameSetup:
     def total_cards(self, value):
         self._total_cards = value
 
-    # Randomly choosing a card distributor and a trump card chooser
     def card_distributor_and_trump_card_chooser(self):
+        """
+        Randomly choosing a card distributor and a trump card chooser
+        """
         card_distributor = random.choice(self.players)
         self.players.remove(card_distributor)
         trump_card_chooser = self.players[0]
         return card_distributor, trump_card_chooser
 
-    # Choosing a trump card
     @staticmethod
     def trump_card(trump_card_chooser):
+        """
+        Choosing a trump card
+        """
         card_suits = ["C", "S", "H", "D", "NONE"]
         trump_card_visual = {"C": '\x1b[107m\x1b[30m♣\x1b[0m', "S": '\x1b[107m\x1b[30m♠\x1b[0m',
                              "H": '\x1b[107m\x1b[31m♥\x1b[0m', "D": '\x1b[107m\x1b[31m♦\x1b[0m'}
@@ -46,9 +50,11 @@ class GameSetup:
                     card_suits.remove("NONE")
                 return chosen_trump_card, card_suits, trump_card_visual
 
-    # Recalculates values for trump cards if trump is presented in the game
     @staticmethod
     def trump_card_effect(total_cards: dict, chosen_trump_card):
+        """
+        Recalculates values for trump cards if trump is presented in the game
+        """
         if chosen_trump_card != "NONE":
             for card in total_cards.keys():
                 if card[0] == chosen_trump_card:

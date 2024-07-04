@@ -1,5 +1,7 @@
-# Asks users for their player nicknames and returns list of 2 players
 def user_names():
+    """
+    Asks users for their player nicknames and returns list of 2 players
+    """
     all_players = []
     counter = 1
     while counter <= 2:
